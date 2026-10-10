@@ -3,28 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой первый сайт</title>
+    <title>Мой первый локальный сайт</title>
+    <!-- Подключаем Tailwind CSS для быстрого и красивого оформления -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { 
-            font-family: sans-serif; 
-            text-align: center; 
-            margin-top: 20%; 
-            background-color: #f4f4f9;
+        /* Добавим небольшую плавность для появления уведомления */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
         }
-        h1 { color: #333; }
-        .box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            display: inline-block;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
-    <div class="box">
-        <h1>Привет, интернет! 🚀</h1>
-        <p>Это мой самый первый локальный сайт.</p>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen m-0 font-sans">
+
+    <!-- Главный контейнер (карточка) -->
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl max-w-lg w-full mx-4 text-center">
+        
+        <!-- Заголовок -->
+        <h1 class="text-3xl font-bold text-slate-800 mb-4">
+            Мой первый локальный сайт
+        </h1>
+        
+        <!-- Описание -->
+        <p class="text-slate-600 mb-8 leading-relaxed">
+            Это простая тестовая страница. Она объединяет в себе три главных кита веб-разработки: 
+            <strong>HTML</strong> (текст), <strong>CSS</strong> (красота) и <strong>JavaScript</strong> (действия).
+        </p>
+        
+        <!-- Кнопка -->
+        <button id="actionButton" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-200 transform hover:scale-105 active:scale-95">
+            Нажми меня
+        </button>
+
+        <!-- Блок уведомления (изначально скрыт) -->
+        <div id="customAlert" class="hidden mt-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg fade-in">
+            <span class="font-medium">Ура!</span> JavaScript работает. Кнопка была нажата.
+        </div>
+        
     </div>
+
+    <script>
+        // Ждем, пока вся страница загрузится
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Находим кнопку и блок уведомления по их ID
+            const button = document.getElementById('actionButton');
+            const alertBox = document.getElementById('customAlert');
+            let timeoutId;
+
+            // Добавляем слушатель события "клик" на кнопку
+            button.addEventListener('click', () => {
+                // Показываем уведомление (убираем класс скрытия)
+                alertBox.classList.remove('hidden');
+                
+                // Если кликнули несколько раз подряд - сбрасываем предыдущий таймер
+                clearTimeout(timeoutId);
+
+                // Прячем уведомление автоматически через 3 секунды (3000 миллисекунд)
+                timeoutId = setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 </html>
